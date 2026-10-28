@@ -1,6 +1,5 @@
 
 const API = "https://api.tenrai.org/v1";
-// TROQUE pelo seu número de matrícula antes de entregar o trabalho.
 const MATRICULA = "469906";
 const LOGS_API = "https://www.piway.com.br/unoesc/api";
 
@@ -88,7 +87,6 @@ async function apiRequest(path, signal) {
   return json;
 }
 
-// Remove caracteres que quebram a URL da API de logs (/ \ ? # % &)
 function limparLog(texto) {
   return String(texto)
     .replace(/[\/\\?#%&]/g, " ")
@@ -97,15 +95,13 @@ function limparLog(texto) {
     .slice(0, 150);
 }
 
-// Evita várias consultas de logs ao mesmo tempo
 let logsTimer;
 function agendarCarregarLogs() {
   clearTimeout(logsTimer);
   logsTimer = setTimeout(carregarLogs, 300);
 }
 
-// Registra a operação na API de logs do professor sem interromper o site
-// caso a API de logs esteja temporariamente indisponível.
+
 async function registrarLog(path, resposta) {
   if (!MATRICULA || MATRICULA === "SUA_MATRICULA") {
     console.warn("Informe sua matrícula na constante MATRICULA para registrar logs.");
